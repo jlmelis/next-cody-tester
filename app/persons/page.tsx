@@ -1,41 +1,19 @@
-// pages/persons.tsx
+// app/persons/page.tsx
 "use client";
 import React, { useState, useEffect } from 'react';
 import Person from './person';
+import { PersonInterface } from '../interfaces/Person';
 
-interface Person {
-    id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
-  };
-  phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
-}
 
 const PersonsPage: React.FC = () => {
-  const [persons, setPersons] = useState<Person[]>([]);
+  const [persons, setPersons] = useState<PersonInterface[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('../api/persons');
-        const data: Person[] = await response.json();
+        const data: PersonInterface[] = await response.json();
         setPersons(data);
       } catch (error) {
         console.error('Error fetching persons:', error);

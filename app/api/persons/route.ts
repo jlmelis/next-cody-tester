@@ -1,54 +1,18 @@
-// pages/api/persons.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
-
-// Define a type for the person object based on the expected structure from JSONPlaceholder
-type Person = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
-  };
-  phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
-};
+// app/api/persons.ts
+import { NextResponse, NextRequest } from 'next/server';
+import { PersonInterface } from '../../interfaces/Person';
 
 export async function GET(
-  req: NextApiRequest,
-  res: NextApiResponse<Person[] | { error: string }>
+  req: NextRequest
 ) {
   try {
-    // Fetch the person objects from JSONPlaceholder
     const response = await fetch("https://jsonplaceholder.typicode.com/users");
-    const persons: Person[] = await response.json();
+    const persons: PersonInterface[] = await response.json();
 
-    return new Response(JSON.stringify(persons), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    // Return the person objects in the response
+    return NextResponse.json(persons, { status: 200 });
   } catch (error) {
-    // Handle any errors
-    return new Response(JSON.stringify({ error: "Failed to fetch data" }), {
-      status: 500,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return NextResponse.json({ error: "Failed to fetch data" }, { status: 500 });
   }
 }
+
+

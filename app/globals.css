@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -14,14 +9,33 @@
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+} /* Add some modern, responsive styling */
+:root {
+  --primary-color: #e3f2fd;
+  --secondary-color: #bbdefb;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* Use CSS variables for colors */
+.button {
+  background-color: var(--primary-color);
+  color: #212121;
 }
+
+/* Add media queries for responsiveness */
+@media (max-width: 768px) {
+  .content {
+    padding: 1rem;
+  }
+}
+
+/* Gradient background */
+body {
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+}
+
+
+

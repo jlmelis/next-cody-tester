@@ -1,37 +1,22 @@
-"use client";
-// components/Person.tsx
 import React from 'react';
+import { PersonInterface } from '../interfaces/Person';
+import { useRouter } from 'next/navigation'; // Import the useRouter hook
 
-interface PersonProps {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-    address: {
-      street: string;
-      suite: string;
-      city: string;
-      zipcode: string;
-      geo: {
-        lat: string;
-        lng: string;
-      };
-    };
-    phone: string;
-    website: string;
-    company: {
-      name: string;
-      catchPhrase: string;
-      bs: string;
-    };
-}
+const Person: React.FC<PersonInterface> = ({ name, email, id }) => {
+  const router = useRouter(); // Use the useRouter hook to get the router instance
 
-const Person: React.FC<PersonProps> = ({ name, email }) => {
+  // Define a function to handle the click event
+  const handleClick = () => {
+    router.push(`/persons/${id}`);
+  };
+
   return (
-    <div className="card bg-white p-4 rounded-lg shadow-md">
+    <div
+      className="card bg-white p-4 rounded-lg shadow-md cursor-pointer hover:bg-gray-100"
+      onClick={handleClick}
+    >
       <h2 className="text-lg font-bold">{name}</h2>
       <p className="text-gray-600">{email}</p>
-      {/* Render other person details here */}
     </div>
   );
 };
